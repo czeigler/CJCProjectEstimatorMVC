@@ -1,0 +1,60 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>CJC Project Estimator - @ViewBag.Title</title>
+    <link href="~/Content/css/main.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+</head>
+<body>
+<div class="container">
+  <div class="header"><img src="~/Content/images/cjc_estimator_logo.png" width="282" height="35" alt="CJC Estimator Logo" />
+@*  <?php if (!loggedIn()) { ?>
+  <div class="login">
+    <form name="login" method="post" action="login.php">
+      <label for="userName">User Name:</label>
+      <input name="userName" type="text" id="User Name" size="12" />
+      <label for="password">Password:</label>
+      <input name="password" type="password" id="Password" size="12" />
+      <input name="submit" type="submit" value="Login" id="Submit" />
+    </form>
+    </div>
+  </div>
+<?php } else { ?>
+  <div class="login">
+    <form name="logout" method="post" action="logout.php">
+      <input name="submit" type="submit" value="Logout" id="Submit" />
+    </form>
+    </div>
+  </div>
+<?php } ?>    *@
+    
+    <div class="containernav">
+<?php if (!loggedIn()) { ?>
+    @Html.ActionLink("Home", "Index", "Home") |
+<?php } else { ?>
+    <a href="home.php">Project Home</a> |
+<?php } ?>    
+    @Html.ActionLink("About", "Index", "About") |  
+    @Html.ActionLink("Sign-up", "Index", "Signup") |
+    </div>
+        @RenderBody()    
+</div>
+
+  <div class="footer">
+
+    <p>Developed by Christopher Allen, Jeremy  Eichelberger, and Christopher Zeigler for CIS 665<br />
+      Colorado State University - Go Rams! - 2013</p>
+    <p><a href="http://www.colostate.edu"><img src="~/Content/images/csu-logo.png" width="170" height="55" alt="CSU Logo"></a></p>
+  </div>
+
+</div> <!-- container -->
+
+</body>
+</html>
