@@ -1,4 +1,5 @@
-﻿@{
+﻿@model CJCProjectEstimatorMVC.Models.User
+@{
     Layout = null;
 }
 
@@ -15,18 +16,18 @@
 <body>
 <div class="container">
   <div class="header"><img src="~/Content/images/cjc_estimator_logo.png" width="282" height="35" alt="CJC Estimator Logo" />
-@*  <?php if (!loggedIn()) { ?>
   <div class="login">
-    <form name="login" method="post" action="login.php">
-      <label for="userName">User Name:</label>
-      <input name="userName" type="text" id="User Name" size="12" />
-      <label for="password">Password:</label>
-      <input name="password" type="password" id="Password" size="12" />
+    @using (Html.BeginForm("Login", "Login"))
+    {
+      @Html.LabelFor(model => model.UserName, "User Name:")
+      @Html.TextBoxFor(model => model.UserName, new { maxlength = 12 })
+      @Html.LabelFor(model => model.Password, "Password:")
+      @Html.PasswordFor(model => model.Password, new { maxlength=12 })
       <input name="submit" type="submit" value="Login" id="Submit" />
-    </form>
+    }
     </div>
-  </div>
-<?php } else { ?>
+
+@*<?php } else { ?>
   <div class="login">
     <form name="logout" method="post" action="logout.php">
       <input name="submit" type="submit" value="Logout" id="Submit" />
@@ -39,7 +40,7 @@
 <?php if (!loggedIn()) { ?>
     @Html.ActionLink("Home", "Index", "Home") |
 <?php } else { ?>
-    <a href="home.php">Project Home</a> |
+    @Html.ActionLink("Home", "Index", "ProjectHome") |
 <?php } ?>    
     @Html.ActionLink("About", "Index", "About") |  
     @Html.ActionLink("Sign-up", "Index", "Signup") |
@@ -51,7 +52,7 @@
 
     <p>Developed by Christopher Allen, Jeremy  Eichelberger, and Christopher Zeigler for CIS 665<br />
       Colorado State University - Go Rams! - 2013</p>
-    <p><a href="http://www.colostate.edu"><img src="~/Content/images/csu-logo.png" width="170" height="55" alt="CSU Logo"></a></p>
+    <p><a href="http://www.colostate.edu"><img src="~/Content/images/csu-logo.png" width="170" height="55" alt="CSU Logo" /></a></p>
   </div>
 
 </div> <!-- container -->
