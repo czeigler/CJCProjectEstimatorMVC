@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using CJCProjectEstimatorMVC.Models;
 
 namespace CJCProjectEstimatorMVC.Controllers
 {
@@ -17,9 +18,10 @@ namespace CJCProjectEstimatorMVC.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login()
+        public String Login(User user)
         {
-            return RedirectToAction("Index", "ProjectHome");
+            return user.UserName + "<br />" + user.Password;
+            //return RedirectToAction("Index", "ProjectHome");
         }
 
         [HttpPost]
