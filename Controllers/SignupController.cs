@@ -18,7 +18,8 @@ namespace CJCProjectEstimatorMVC.Controllers
             return View();
         }
 
-        public ActionResult SignUp(CJCProjectEstimatorMVC.Models.AppUser app)
+        [HttpPost]
+        public ActionResult SignUp(AppUser app)
         {
 
             AppUserDBContext db = new AppUserDBContext();
