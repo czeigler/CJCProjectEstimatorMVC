@@ -1,0 +1,125 @@
+CREATE TABLE [dbo].[appusers](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[FirstName] [nchar](40) NOT NULL,
+	[LastName] [nchar](40) NOT NULL,
+	[UserName] [nchar](40) NOT NULL,
+	[PasswordHash] [nchar](256) NOT NULL,
+	[PasswordSalt] [nchar](20) NOT NULL,
+	[CompanyName] [nchar](40) NULL,
+ CONSTRAINT [PK_appusers] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[material]    Script Date: 4/13/2013 10:33:40 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[material](
+	[materialId] [int] IDENTITY(1,1) NOT NULL,
+	[name] [nchar](40) NOT NULL,
+	[description] [nchar](256) NULL,
+	[cost] [money] NOT NULL,
+	[materialUnitId] [int] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[materialId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[materialUnit]    Script Date: 4/13/2013 10:33:40 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[materialUnit](
+	[materialUnitId] [int] IDENTITY(1,1) NOT NULL,
+	[name] [nchar](40) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[materialUnitId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[project]    Script Date: 4/13/2013 10:33:40 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[project](
+	[ProjectId] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [nchar](30) NOT NULL,
+	[Id] [int] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[ProjectId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[projectLaborItem]    Script Date: 4/13/2013 10:33:40 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[projectLaborItem](
+	[ProjectLaborItemId] [int] IDENTITY(1,1) NOT NULL,
+	[Description] [nvarchar](50) NOT NULL,
+	[Hours] [decimal](6, 2) NOT NULL,
+	[CostPerHour] [money] NOT NULL,
+	[ProjectId] [int] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[ProjectLaborItemId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[projectMaterial]    Script Date: 4/13/2013 10:33:40 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[projectMaterial](
+	[projectId] [int] NOT NULL,
+	[materialId] [int] NOT NULL,
+	[number] [decimal](6, 2) NULL,
+	[cost] [decimal](6, 2) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[projectId] ASC,
+	[materialId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+ALTER TABLE [dbo].[material]  WITH CHECK ADD  CONSTRAINT [FK_material_ToTable] FOREIGN KEY([materialUnitId])
+REFERENCES [dbo].[materialUnit] ([materialUnitId])
+GO
+ALTER TABLE [dbo].[material] CHECK CONSTRAINT [FK_material_ToTable]
+GO
+ALTER TABLE [dbo].[project]  WITH CHECK ADD  CONSTRAINT [FK_project_ToTable] FOREIGN KEY([Id])
+REFERENCES [dbo].[appusers] ([Id])
+GO
+ALTER TABLE [dbo].[project] CHECK CONSTRAINT [FK_project_ToTable]
+GO
+ALTER TABLE [dbo].[projectLaborItem]  WITH CHECK ADD  CONSTRAINT [FK_projectLaborItem_ToTable] FOREIGN KEY([ProjectId])
+REFERENCES [dbo].[project] ([ProjectId])
+GO
+ALTER TABLE [dbo].[projectLaborItem] CHECK CONSTRAINT [FK_projectLaborItem_ToTable]
+GO
+ALTER TABLE [dbo].[projectMaterial]  WITH CHECK ADD  CONSTRAINT [FK_projectMaterial_ToTable] FOREIGN KEY([projectId])
+REFERENCES [dbo].[project] ([ProjectId])
+GO
+ALTER TABLE [dbo].[projectMaterial] CHECK CONSTRAINT [FK_projectMaterial_ToTable]
+GO
+ALTER TABLE [dbo].[projectMaterial]  WITH CHECK ADD  CONSTRAINT [FK_projectMaterial_ToTable_1] FOREIGN KEY([materialId])
+REFERENCES [dbo].[material] ([materialId])
+GO
+ALTER TABLE [dbo].[projectMaterial] CHECK CONSTRAINT [FK_projectMaterial_ToTable_1]
+GO

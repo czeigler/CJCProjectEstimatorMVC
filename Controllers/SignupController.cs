@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using CJCProjectEstimatorMVC.Models;
 
+
 namespace CJCProjectEstimatorMVC.Controllers
 {
     public class SignupController : Controller
@@ -17,11 +18,11 @@ namespace CJCProjectEstimatorMVC.Controllers
             return View();
         }
 
-        public ActionResult SignUp(appuser app)
+        public ActionResult SignUp(CJCProjectEstimatorMVC.Models.AppUser app)
         {
 
-            EstimationToolDBEntities db = new EstimationToolDBEntities();
-            db.appusers.AddObject(app);
+            AppUserDBContext db = new AppUserDBContext();
+            db.AppUsers.Add(app);
             db.SaveChanges();
             return View();
             

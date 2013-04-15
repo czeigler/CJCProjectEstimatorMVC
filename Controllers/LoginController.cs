@@ -18,9 +18,9 @@ namespace CJCProjectEstimatorMVC.Controllers
         }
 
         [HttpPost]
-        public String Login(User user)
+        public String Login(AppUser user)
         {
-            return user.UserName + "<br />" + user.Password;
+            return user.UserName + "<br />" + user.PasswordHash;
             //return RedirectToAction("Index", "ProjectHome");
         }
 
