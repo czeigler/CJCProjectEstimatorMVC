@@ -1,4 +1,4 @@
-﻿@model CJCProjectEstimatorMVC.Models.AppUser
+﻿@model CJCProjectEstimatorMVC.Models.AppUserViewModel
 @{
     Layout = null;
 }
@@ -11,7 +11,8 @@
     <title>CJC Project Estimator - @ViewBag.Title</title>
     <link href="~/Content/css/main.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-
+    <script src="/Scripts/MicrosoftAjax.js" type="text/javascript"></script>
+    <script src="/Scripts/MicrosoftMvcValidation.js" type="text/javascript"></script>
 </head>
 <body>
 <div class="container">
@@ -21,9 +22,9 @@
     {
       @Html.LabelFor(model => model.UserName, "User Name:")
       @Html.TextBoxFor(model => model.UserName, new { maxlength = 45 })
-@*      @Html.LabelFor(model => model.Password, "Password:")
-      @Html.PasswordFor(model => model.Password, new { maxlength=15 })
-*@      <input name="submit" type="submit" value="Login" id="Submit" />
+      @Html.LabelFor(model => model.Password, "Password:")
+      @Html.PasswordFor(model => model.Password, new { maxlength = 15 })
+      <input name="submit" type="submit" value="Login" id="Submit" />
     }
     </div>
 

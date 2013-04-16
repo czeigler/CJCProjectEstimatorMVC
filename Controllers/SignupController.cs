@@ -13,19 +13,42 @@ namespace CJCProjectEstimatorMVC.Controllers
         //
         // GET: /Signup/
 
+        public ActionResult Thankyou()
+        {
+            return View();
+        }
+
         public ActionResult Index()
         {
             return View();
         }
 
         [HttpPost]
-        public ActionResult SignUp(AppUser app)
+        public ActionResult Index(AppUserViewModel user)
         {
 
-            AppUserDBContext db = new AppUserDBContext();
-            db.AppUsers.Add(app);
-            db.SaveChanges();
-            return View();
+
+            if (ModelState.IsValid)
+            {
+
+                AppUser appUser = new AppUser();
+
+                appUser.FirstName = user.FirstName;
+                appUser.LastName = user.LastName;
+                appUser.UserName = user.UserName;
+                appUser.CompanyName = user.CompanyName;
+                appUser.PasswordSalt = DateTime.Now.ToString();
+                appUser.PasswordHash = Hash.getHashSha256(user.Password + appUser.PasswordSalt);
+
+                AppUserDBContext db = new AppUserDBContext();
+                db.AppUsers.Add(appUser);
+                db.SaveChanges();
+                return Redirect("~/Signup/Thankyou");
+            }
+            else
+            {
+                return View(user);
+            }
             
         }
 

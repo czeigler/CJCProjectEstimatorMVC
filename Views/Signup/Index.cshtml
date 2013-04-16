@@ -1,4 +1,4 @@
-﻿@model CJCProjectEstimatorMVC.Models.AppUser
+﻿@model CJCProjectEstimatorMVC.Models.AppUserViewModel
 @{
     ViewBag.Title = "Sign-up";
 }
@@ -83,12 +83,15 @@
     
 ?>
 *@  
+
+@{ Html.EnableClientValidation(); }
+
    <h3><br />Sign up for the CJC Project Estimator</h3>
    <p>It's <strong>free</strong> and we won't spam you.</p>
    
    <div class="fieldset">
     <h4 class="legend">Sign-up</h4>
-    @using (Html.BeginForm("Signup", "Signup"))
+    @using (Html.BeginForm("Index", "Signup"))
     {
 
         
@@ -105,27 +108,39 @@
     <table class="table">
       <tr >
         <td class="firstcoll">User Name:<span class='required'>*</span></td>
-        <td>@Html.TextBoxFor(model => model.UserName, new { maxlength = 45, size = 25 })</td>
+        <td>@Html.TextBoxFor(model => model.UserName, new { maxlength = 45, size = 25 })
+            @Html.ValidationMessageFor(model => model.UserName)
+        </td>
       </tr>
       <tr >
         <td class="firstcoll">First Name:<span class='required'>*</span></td>
-        <td>@Html.TextBoxFor(model => model.FirstName, new { maxlength = 45, size = 25 })</td>
+        <td>@Html.TextBoxFor(model => model.FirstName, new { maxlength = 45, size = 25 })
+        @Html.ValidationMessageFor(model => model.FirstName)
+        </td>
       </tr>
       <tr>
         <td class="firstcoll">Last Name:<span class='required'>*</span></td>
-        <td>@Html.TextBoxFor(model => model.LastName, new { maxlength = 45, size = 25 })</td>
+        <td>@Html.TextBoxFor(model => model.LastName, new { maxlength = 45, size = 25 })
+        @Html.ValidationMessageFor(model => model.LastName)
+        </td>
       </tr>
       <tr>
         <td class="firstcoll">Company Name: </td>
-        <td>@Html.TextBoxFor(model => model.CompanyName, new { maxlength = 45, size = 25 })</td>
+        <td>@Html.TextBoxFor(model => model.CompanyName, new { maxlength = 45, size = 25 })
+        @Html.ValidationMessageFor(model => model.CompanyName)
+        </td>
       </tr>
       <tr>
         <td class="firstcoll">Password:<span class='required'>*</span></td>
-        <td><input name="password" type="password"  size="25" maxlength="15" /></td>
+        <td>@Html.TextBoxFor(model => model.Password, new { maxlength = 15, size = 25 })
+        @Html.ValidationMessageFor(model => model.Password)
+        </td>
       </tr>
       <tr>
         <td class="firstcoll">Confirm Password:<span class='required'>*</span></td>
-        <td><input name="passwordConfirm" type="password"  size="25" maxlength="15" /></td>
+        <td>@Html.TextBoxFor(model => model.PasswordConfirm, new { maxlength = 15, size = 25 })
+        @Html.ValidationMessageFor(model => model.PasswordConfirm)
+        </td>
       </tr>
       <tr>
         <td class="firstcoll" />
