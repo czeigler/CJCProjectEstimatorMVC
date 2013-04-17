@@ -1,0 +1,35 @@
+﻿@model CJCProjectEstimatorMVC.Models.AppUserViewModel
+@{
+    ViewBag.Title = "Login";
+}
+
+<div class="fieldset">
+    <div class="legend">Login</div>
+    <h4>Enter your user name and password below to log in.</h4>
+    
+    @using (Html.BeginForm("Index", "Login"))
+    {
+
+    <div>@Html.ValidationSummary(true, "The following errors occured while logging in:")</div>
+    <div>@Html.ValidationMessageFor(model => model.UserName)</div>
+    <div>@Html.ValidationMessageFor(model => model.Password)</div>
+
+        <table class="table">
+            <tr>
+                <td class="firstcoll">@Html.LabelFor(model => model.UserName, "User Name:")<span class='required'>*</span></td>
+                <td>@Html.TextBoxFor(model => model.UserName, new { maxlength = 45 })</td>
+            </tr>
+            <tr>
+                <td class="firstcoll">@Html.LabelFor(model => model.Password, "Password:")<span class='required'>*</span></td>
+                <td>@Html.PasswordFor(model => model.Password, new { maxlength = 15 })</td>
+            </tr>
+            <tr>
+                <td class="firstcoll"></td>
+                <td class="submitcoll"><input name="submit" type="submit" value="Login" id="Submit" /></td>
+            </tr>
+        </table>
+        }
+    <p>&nbsp;</p>    
+    <span class='required'>* Required Fields</span>
+    <p>&nbsp;</p>
+</div>

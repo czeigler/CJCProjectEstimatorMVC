@@ -7,7 +7,7 @@ using CJCProjectEstimatorMVC.Models;
 
 namespace CJCProjectEstimatorMVC.Controllers
 {
-    public class LoginController : Controller
+    public class LoginController : BaseController
     {
         //
         // GET: /Login/
@@ -18,10 +18,28 @@ namespace CJCProjectEstimatorMVC.Controllers
         }
 
         [HttpPost]
-        public String Login(AppUserViewModel user)
+        public ActionResult Index(AppUserViewModel user)
         {
-            return user.UserName + "<br />" + user.Password;
-            //return RedirectToAction("Index", "ProjectHome");
+            AppUserDBContext db = new AppUserDBContext();
+
+            AppUser appUser = db.AppUsers.Where(a => a.UserName == user.UserName).FirstOrDefault();
+
+            if (appUser == null)
+            {
+                ModelState.AddModelError("UserName", "User Name or Password is incorrect");
+            }
+
+            String passwordHash = Hash.getHashSha256(user.Password + appUser.PasswordSalt);
+
+            if (passwordHash == appUser.PasswordHash)
+            {
+                setLoggedIn(appUser.Id);
+                return RedirectToAction("Index", "ProjectHome");
+            }
+            else
+            {
+                return View();
+            }
         }
 
         [HttpPost]

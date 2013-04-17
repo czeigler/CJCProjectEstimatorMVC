@@ -18,7 +18,7 @@
 <div class="container">
   <div class="header"><img src="~/Content/images/cjc_estimator_logo.png" width="282" height="35" alt="CJC Estimator Logo" />
   <div class="login">
-    @using (Html.BeginForm("Login", "Login"))
+    @using (Html.BeginForm("Index", "Login"))
     {
       @Html.LabelFor(model => model.UserName, "User Name:")
       @Html.TextBoxFor(model => model.UserName, new { maxlength = 45 })

@@ -169,8 +169,13 @@ a:hover, a:active, a:focus {
 	line-height: 0px;
 }
 
-.required {
+.required, .field-validation-error, .validation-summary-errors {
     color: red;
+}
+
+div.error-div 
+{
+    margin-left: 45px !important;
 }
 
 .errorMessage {
@@ -312,3 +317,4 @@ table.report th {
     text-align: right;  
     font-size: 15px !important;
 }
+

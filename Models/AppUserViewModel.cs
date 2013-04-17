@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Data.Entity;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 
 namespace CJCProjectEstimatorMVC.Models
@@ -60,6 +61,7 @@ namespace CJCProjectEstimatorMVC.Models
 
         private String passwordConfirm;
 
+        [Compare("Password", ErrorMessage="Password and Confirm Password must match")]
         [Required(ErrorMessage = "Please enter a Password Confirmation")]
         [StringLength(15, ErrorMessage = "Password Confirmation is too long")]
         public String PasswordConfirm

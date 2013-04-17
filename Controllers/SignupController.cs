@@ -28,9 +28,15 @@ namespace CJCProjectEstimatorMVC.Controllers
         {
 
 
+            AppUserDBContext db = new AppUserDBContext();
+
+            if (db.AppUsers.Where(a => a.UserName == user.UserName).FirstOrDefault() != null)
+            {
+                ModelState.AddModelError("UserName", "User Name \"" + user.UserName  + "\" is already being used");
+            }
+
             if (ModelState.IsValid)
             {
-
                 AppUser appUser = new AppUser();
 
                 appUser.FirstName = user.FirstName;
@@ -40,7 +46,7 @@ namespace CJCProjectEstimatorMVC.Controllers
                 appUser.PasswordSalt = DateTime.Now.ToString();
                 appUser.PasswordHash = Hash.getHashSha256(user.Password + appUser.PasswordSalt);
 
-                AppUserDBContext db = new AppUserDBContext();
+                
                 db.AppUsers.Add(appUser);
                 db.SaveChanges();
                 return Redirect("~/Signup/Thankyou");
