@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace CJCProjectEstimatorMVC.Controllers
 {
-    public class ProjectHomeController : Controller
+    public class ProjectHomeController : BaseController
     {
         //
         // GET: /ProjectHome/

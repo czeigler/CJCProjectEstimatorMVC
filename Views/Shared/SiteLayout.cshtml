@@ -17,32 +17,44 @@
 <body>
 <div class="container">
   <div class="header"><img src="~/Content/images/cjc_estimator_logo.png" width="282" height="35" alt="CJC Estimator Logo" />
+  @if (Session["UserId"] == null)
+  {
   <div class="login">
+
     @using (Html.BeginForm("Index", "Login"))
     {
-      @Html.LabelFor(model => model.UserName, "User Name:")
-      @Html.TextBoxFor(model => model.UserName, new { maxlength = 45 })
-      @Html.LabelFor(model => model.Password, "Password:")
-      @Html.PasswordFor(model => model.Password, new { maxlength = 15 })
-      <input name="submit" type="submit" value="Login" id="Submit" />
+        
+          @Html.LabelFor(model => model.UserName, "User Name:")
+          @Html.TextBoxFor(model => model.UserName, new { maxlength = 45 })
+          @Html.LabelFor(model => model.Password, "Password:")
+          @Html.PasswordFor(model => model.Password, new { maxlength = 15 })
+          <input name="submit" type="submit" value="Login" id="Submit" />
+
+
     }
     </div>
-
-@*<?php } else { ?>
+  }
+  else
+  {
   <div class="login">
-    <form name="logout" method="post" action="logout.php">
-      <input name="submit" type="submit" value="Logout" id="Submit" />
-    </form>
+
+    @using (Html.BeginForm("Logout", "Login"))
+    {
+          <input name="submit" type="submit" value="Logout" id="Submit" />
+    }
     </div>
-  </div>
-<?php } ?>    *@
+  }      
     
     <div class="containernav">
-<?php if (!loggedIn()) { ?>
-    @Html.ActionLink("Home", "Index", "Home") |
-<?php } else { ?>
-    @Html.ActionLink("Home", "Index", "ProjectHome") |
-<?php } ?>    
+@if (Session["UserId"] == null)
+{
+    @Html.ActionLink("Home", "Index", "Home") 
+}
+else
+{
+    @Html.ActionLink("Home", "Index", "ProjectHome") 
+}
+ |
     @Html.ActionLink("About", "Index", "About") |  
     @Html.ActionLink("Sign-up", "Index", "Signup") |
     </div>

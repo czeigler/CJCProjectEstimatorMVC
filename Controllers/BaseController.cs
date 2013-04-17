@@ -8,7 +8,6 @@ namespace CJCProjectEstimatorMVC.Controllers
 {
     public class BaseController : Controller
     {
-        Boolean loggedIn = false;
 
         protected Int32 getCurrentUserId()
         {
@@ -24,6 +23,12 @@ namespace CJCProjectEstimatorMVC.Controllers
         {
             Session["UserId"] = rhs;
         }
+
+        protected void setLoggedOut()
+        {
+            Session["UserId"] = null;
+        }
+
 
 
     }

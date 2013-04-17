@@ -27,24 +27,29 @@ namespace CJCProjectEstimatorMVC.Controllers
             if (appUser == null)
             {
                 ModelState.AddModelError("UserName", "User Name or Password is incorrect");
-            }
-
-            String passwordHash = Hash.getHashSha256(user.Password + appUser.PasswordSalt);
-
-            if (passwordHash == appUser.PasswordHash)
-            {
-                setLoggedIn(appUser.Id);
-                return RedirectToAction("Index", "ProjectHome");
+                return View();
             }
             else
             {
-                return View();
+                String passwordHash = Hash.getHashSha256(user.Password + appUser.PasswordSalt);
+
+                if (passwordHash == appUser.PasswordHash)
+                {
+                    setLoggedIn(appUser.Id);
+                    return RedirectToAction("Index", "ProjectHome");
+                }
+                else
+                {
+                    ModelState.AddModelError("UserName", "User Name or Password is incorrect");
+                    return View();
+                }
             }
         }
 
         [HttpPost]
         public ActionResult Logout()
         {
+            setLoggedOut();
             return RedirectToAction("Index", "Home");
         }
 

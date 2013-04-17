@@ -8,7 +8,7 @@ using CJCProjectEstimatorMVC.Models;
 
 namespace CJCProjectEstimatorMVC.Controllers
 {
-    public class SignupController : Controller
+    public class SignupController : BaseController
     {
         //
         // GET: /Signup/
