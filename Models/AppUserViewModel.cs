@@ -22,7 +22,7 @@ namespace CJCProjectEstimatorMVC.Models
         private String userName;
 
         [Required(ErrorMessage="Please enter a User Name")]
-        [StringLength(45, ErrorMessage="User Name is too long")]
+        [StringLength(40, ErrorMessage="User Name is too long")]
         public String UserName
         {
             get { return userName; }
@@ -32,7 +32,7 @@ namespace CJCProjectEstimatorMVC.Models
         private String firstName;
 
         [Required(ErrorMessage = "Please enter a First Name")]
-        [StringLength(45, ErrorMessage = "First Name is too long")]
+        [StringLength(40, ErrorMessage = "First Name is too long")]
         public String FirstName
         {
             get { return firstName; }
@@ -42,7 +42,7 @@ namespace CJCProjectEstimatorMVC.Models
         private String lastName;
 
         [Required(ErrorMessage = "Please enter a Last Name")]
-        [StringLength(45, ErrorMessage = "Last Name is too long")]
+        [StringLength(40, ErrorMessage = "Last Name is too long")]
         public String LastName
         {
             get { return lastName; }
@@ -72,7 +72,7 @@ namespace CJCProjectEstimatorMVC.Models
 
         private String companyName;
 
-        [StringLength(45, ErrorMessage = "Company Name is too long")]
+        [StringLength(40, ErrorMessage = "Company Name is too long")]
         public String CompanyName
         {
             get { return companyName; }
