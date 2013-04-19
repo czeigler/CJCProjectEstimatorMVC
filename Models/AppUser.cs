@@ -3,67 +3,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data.Entity;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 
 namespace CJCProjectEstimatorMVC.Models
 {
     public class AppUser
     {
-        private int id;
-
-        public int Id
-        {
-            get { return id; }
-            set { id = value; }
-        }
+        [Key]
+        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
         
-        private String userName;
+        public String UserName { get; set; }
 
-        public String UserName
-        {
-            get { return userName; }
-            set { userName = value; }
-        }
+        public String FirstName { get; set; }
 
-        private String firstName;
+        public String LastName { get; set; }
 
-        public String FirstName
-        {
-            get { return firstName; }
-            set { firstName = value; }
-        }
+        public String PasswordHash { get; set; }
 
-        private String lastName;
+        public String PasswordSalt { get; set; }
 
-        public String LastName
-        {
-            get { return lastName; }
-            set { lastName = value; }
-        }
-
-        private String passwordHash;
-
-        public String PasswordHash
-        {
-            get { return passwordHash; }
-            set { passwordHash = value; }
-        }
-
-        private String passwordSalt;
-
-        public String PasswordSalt
-        {
-            get { return passwordSalt; }
-            set { passwordSalt = value; }
-        }
-        
-        private String companyName;
-
-        public String CompanyName
-        {
-            get { return companyName; }
-            set { companyName = value; }
-        }
+        public String CompanyName { get; set; }
 
     }
 

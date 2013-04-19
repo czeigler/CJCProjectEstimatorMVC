@@ -9,9 +9,9 @@ namespace CJCProjectEstimatorMVC.Controllers
     public class BaseController : Controller
     {
 
-        protected Int32 getCurrentUserId()
+        protected Int32? getCurrentUserId()
         {
-            return (Int32) Session["UserId"];
+            return (Int32?) Session["UserId"];
         }
 
         protected Boolean isLoggedIn()
