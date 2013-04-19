@@ -67,9 +67,6 @@ namespace CJCProjectEstimatorMVC.Models
 
     }
 
-    public class AppUserDBContext : DbContext
-    {
-        public DbSet<AppUser> AppUsers { get; set; }
-    }
+
 
 }

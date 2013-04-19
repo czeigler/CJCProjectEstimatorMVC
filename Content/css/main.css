@@ -204,7 +204,7 @@ div.error-div
     text-align: left;
     text-transform: uppercase;}
 
-.input[type=submit] {
+.input[type=submit]{
     color: #444444;
     font-size: 18px;
     border-radius: 5px;
@@ -214,6 +214,13 @@ div.error-div
     margin-top: 5px;
     margin-bottom: 5px;
 }
+
+ .signup-button {
+    color: #000 !important;
+    font-size: 18px;
+ }
+
+
 .image
 { float: right;
   clear: both;

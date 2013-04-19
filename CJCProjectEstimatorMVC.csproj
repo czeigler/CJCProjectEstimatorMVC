@@ -144,7 +144,9 @@
     </Compile>
     <Compile Include="Hash.cs" />
     <Compile Include="Models\AppUser.cs" />
+    <Compile Include="Models\AppUserDbContext.cs" />
     <Compile Include="Models\AppUserViewModel.cs" />
+    <Compile Include="Models\Material.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -155,7 +157,6 @@
     <Content Include="Content\images\cjc_estimator_logo.png" />
     <Content Include="Content\images\csu-logo.png" />
     <Content Include="Content\images\worker.jpg" />
-    <Content Include="Content\main.css" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

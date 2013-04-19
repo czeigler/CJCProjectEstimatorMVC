@@ -28,7 +28,7 @@ namespace CJCProjectEstimatorMVC.Controllers
         {
 
 
-            AppUserDBContext db = new AppUserDBContext();
+            DBContext db = new DBContext();
 
             if (db.AppUsers.Where(a => a.UserName == user.UserName).FirstOrDefault() != null)
             {
@@ -49,6 +49,9 @@ namespace CJCProjectEstimatorMVC.Controllers
                 
                 db.AppUsers.Add(appUser);
                 db.SaveChanges();
+
+                setLoggedIn(appUser.Id);
+
                 return Redirect("~/Signup/Thankyou");
             }
             else

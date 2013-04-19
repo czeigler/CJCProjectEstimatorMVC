@@ -20,7 +20,7 @@ namespace CJCProjectEstimatorMVC.Controllers
         [HttpPost]
         public ActionResult Index(AppUserViewModel user)
         {
-            AppUserDBContext db = new AppUserDBContext();
+            DBContext db = new DBContext();
 
             AppUser appUser = db.AppUsers.Where(a => a.UserName == user.UserName).FirstOrDefault();
 
