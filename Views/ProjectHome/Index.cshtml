@@ -33,11 +33,12 @@
     </form>
   </div>
   <div class="dashboard">
-    <h4 class="legend">Create a new project<br>
+    <h4 class="legend">Create a new project<br />
     </h4>
     <hr>
   
-     <form name="form1" method="post" action="createProject.php"> 
+     @using (Html.BeginForm("Index", "ProjectEdit"))
+     {
        <p>
          <label for="projectId">Project Name:</label>
          <input name="projectName" type="text" id="projectName" size="17" />
@@ -45,7 +46,7 @@
        <p>
          <input type="submit" class="input" name="Add" id="Add" value="Add" id="addProject" />
        </p>
-     </form>
+     }
 
 </div><div class="contentClear"><p>Results will be displayed on the next page.</p></div>
   </div>
