@@ -1,4 +1,4 @@
-﻿@model CJCProjectEstimatorMVC.Models.AppUserViewModel
+﻿@model CJCProjectEstimatorMVC.Models.SignupViewModel
 @{
     ViewBag.Title = "Sign-up";
 }
@@ -11,12 +11,12 @@
 
 
     <div>@Html.ValidationSummary(true, "The following errors occured while signing up:")</div>
-    <div>@Html.ValidationMessageFor(model => model.UserName)</div>
-    <div>@Html.ValidationMessageFor(model => model.FirstName)</div>
-    <div>@Html.ValidationMessageFor(model => model.LastName)</div>
-    <div>@Html.ValidationMessageFor(model => model.CompanyName)</div>
-    <div>@Html.ValidationMessageFor(model => model.Password)</div>
-    <div>@Html.ValidationMessageFor(model => model.PasswordConfirm)</div>
+    <div>@Html.ValidationMessageFor(model => model.AppUserVM.UserName)</div>
+    <div>@Html.ValidationMessageFor(model => model.AppUserVM.FirstName)</div>
+    <div>@Html.ValidationMessageFor(model => model.AppUserVM.LastName)</div>
+    <div>@Html.ValidationMessageFor(model => model.AppUserVM.CompanyName)</div>
+    <div>@Html.ValidationMessageFor(model => model.AppUserVM.Password)</div>
+    <div>@Html.ValidationMessageFor(model => model.AppUserVM.PasswordConfirm)</div>
 
    
    <div class="fieldset">
@@ -29,37 +29,37 @@
     <table class="table">
       <tr >
         <td class="firstcoll">User Name:<span class='required'>*</span></td>
-        <td>@Html.TextBoxFor(model => model.UserName, new { maxlength = 40, size = 25 })
+        <td>@Html.TextBoxFor(model => model.AppUserVM.UserName, new { maxlength = 40, size = 25 })
 
         </td>
       </tr>
       <tr >
         <td class="firstcoll">First Name:<span class='required'>*</span></td>
-        <td>@Html.TextBoxFor(model => model.FirstName, new { maxlength = 40, size = 25 })
+        <td>@Html.TextBoxFor(model => model.AppUserVM.FirstName, new { maxlength = 40, size = 25 })
 
         </td>
       </tr>
       <tr>
         <td class="firstcoll">Last Name:<span class='required'>*</span></td>
-        <td>@Html.TextBoxFor(model => model.LastName, new { maxlength = 40, size = 25 })
+        <td>@Html.TextBoxFor(model => model.AppUserVM.LastName, new { maxlength = 40, size = 25 })
 
         </td>
       </tr>
       <tr>
         <td class="firstcoll">Company Name: </td>
-        <td>@Html.TextBoxFor(model => model.CompanyName, new { maxlength = 40, size = 25 })
+        <td>@Html.TextBoxFor(model => model.AppUserVM.CompanyName, new { maxlength = 40, size = 25 })
 
         </td>
       </tr>
       <tr>
         <td class="firstcoll">Password:<span class='required'>*</span></td>
-        <td>@Html.PasswordFor(model => model.Password, new { maxlength = 15, size = 25 })
+        <td>@Html.PasswordFor(model => model.AppUserVM.Password, new { maxlength = 15, size = 25 })
 
         </td>
       </tr>
       <tr>
         <td class="firstcoll">Confirm Password:<span class='required'>*</span></td>
-        <td>@Html.PasswordFor(model => model.PasswordConfirm, new { maxlength = 15, size = 25 })
+        <td>@Html.PasswordFor(model => model.AppUserVM.PasswordConfirm, new { maxlength = 15, size = 25 })
 
         </td>
       </tr>

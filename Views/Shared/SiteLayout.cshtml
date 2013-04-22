@@ -37,15 +37,15 @@
     <div class="containernav">
 @if (Session["UserId"] == null)
 {
-    @Html.ActionLink("Home", "Index", "Home") 
+    <a href="~/" class="navLink">Home</a>
 }
 else
 {
-    @Html.ActionLink("Home", "Index", "ProjectHome") 
+    <a href="~/ProjectHome/" class="navLink">Home</a>
 }
  |
-    @Html.ActionLink("About", "Index", "About") |  
-    @Html.ActionLink("Sign-up", "Index", "Signup") |
+    <a href="~/About/" class="navLink">About</a> |  
+    <a href="~/Signup/" class="navLink">Sign-up</a> |
     </div>
         @RenderBody()    
 </div>

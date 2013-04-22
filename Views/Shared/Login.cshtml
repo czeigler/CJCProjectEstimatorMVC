@@ -1,4 +1,4 @@
-﻿@model CJCProjectEstimatorMVC.Models.AppUserViewModel
+﻿@model CJCProjectEstimatorMVC.Models.BaseViewModel
 @{
     ViewBag.Title = "Login";
 }
@@ -6,10 +6,10 @@
     @using (Html.BeginForm("Index", "Login"))
     {
         
-          @Html.LabelFor(model => model.UserName, "User Name:")
-          @Html.TextBoxFor(model => model.UserName, new { maxlength = 40 })
-          @Html.LabelFor(model => model.Password, "Password:")
-          @Html.PasswordFor(model => model.Password, new { maxlength = 15 })
+          @Html.LabelFor(model => model.AppUserVM.UserName, "User Name:")
+          @Html.TextBoxFor(model => model.AppUserVM.UserName, new { maxlength = 40 })
+          @Html.LabelFor(model => model.AppUserVM.Password, "Password:")
+          @Html.PasswordFor(model => model.AppUserVM.Password, new { maxlength = 15 })
           <input name="submit" type="submit" value="Login" id="Submit" />
 
 

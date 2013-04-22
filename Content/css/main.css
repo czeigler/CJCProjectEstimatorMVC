@@ -21,11 +21,16 @@ a img {
 }
 
 a:link {
-	color: #FFF;
 	display: inline;
 	text-decoration: none;
 	margin: 35px
 }
+
+a.navLink:link 
+{
+    color: #FFF;
+}
+
 a:visited {
 	color: #CCC  ;
 	text-decoration: none;

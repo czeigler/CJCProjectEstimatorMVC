@@ -9,7 +9,7 @@
 
     
    <p>Welcome to your projects home page. From here you can create a new project, search for an existing project, or run the projects report. </p>
-   <div class="contentClear"><p>To view all your projects <a href="searchResults.php">click here</a>.</p></div>
+   <div class="contentClear"><p>To view all your projects @Html.ActionLink("click here", "Index", "ProjectList").</p></div>
    
    <div class="dashboard">
     <h4 class="legend">Run Projects Report</h4>
@@ -38,7 +38,7 @@
     </h4>
     <hr>
     
-    <div>@Html.ActionLink("Create Project", "Index", "ProjectEdit") </div>
+    @Html.ActionLink("Create Project", "Index", "ProjectEdit")
      
 
 </div><div class="contentClear"><p>Results will be displayed on the next page.</p></div>
