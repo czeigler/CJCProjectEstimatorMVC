@@ -1,5 +1,4 @@
-﻿@model CJCProjectEstimatorMVC.Models.AppUserViewModel
-@{
+﻿@{
     Layout = null;
 }
 
@@ -20,18 +19,8 @@
   @if (Session["UserId"] == null)
   {
   <div class="login">
+      @Html.Partial("Login")
 
-    @using (Html.BeginForm("Index", "Login"))
-    {
-        
-          @Html.LabelFor(model => model.UserName, "User Name:")
-          @Html.TextBoxFor(model => model.UserName, new { maxlength = 45 })
-          @Html.LabelFor(model => model.Password, "Password:")
-          @Html.PasswordFor(model => model.Password, new { maxlength = 15 })
-          <input name="submit" type="submit" value="Login" id="Submit" />
-
-
-    }
     </div>
   }
   else

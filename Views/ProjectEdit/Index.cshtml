@@ -3,4 +3,16 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+@{ Html.EnableClientValidation(); }
+
+    @using (Html.BeginForm("Index", "ProjectEdit"))
+    {
+
+
+    <div>@Html.ValidationSummary(true, "The following errors occured while creating a project:")</div>
+    <div>@Html.ValidationMessageFor(model => model.Name)</div>
+
+    @Html.LabelFor(model => model.Name, "Project Name:")<span class='required'>*</span>
+    @Html.TextBoxFor(model => model.Name, new { maxlength = 40 })
+    <input type="submit" value="Save" />
+    }

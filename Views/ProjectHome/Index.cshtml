@@ -1,4 +1,5 @@
-﻿@{
+﻿@model CJCProjectEstimatorMVC.Models.Project
+@{
     ViewBag.Title = "Projects Dashboard";
 }
 
@@ -36,17 +37,9 @@
     <h4 class="legend">Create a new project<br />
     </h4>
     <hr>
-  
-     @using (Html.BeginForm("Index", "ProjectEdit"))
-     {
-       <p>
-         <label for="projectId">Project Name:</label>
-         <input name="projectName" type="text" id="projectName" size="17" />
-       </p>
-       <p>
-         <input type="submit" class="input" name="Add" id="Add" value="Add" id="addProject" />
-       </p>
-     }
+    
+    <div>@Html.ActionLink("Create Project", "Index", "ProjectEdit") </div>
+     
 
 </div><div class="contentClear"><p>Results will be displayed on the next page.</p></div>
   </div>

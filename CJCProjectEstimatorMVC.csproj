@@ -178,6 +178,7 @@
     <Content Include="Views\Signup\Thankyou.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\ProjectEdit\Index.cshtml" />
+    <Content Include="Views\Shared\Login.cshtml" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />
