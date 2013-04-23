@@ -1,4 +1,4 @@
-﻿@model CJCProjectEstimatorMVC.Models.AppUserViewModel
+﻿@model CJCProjectEstimatorMVC.Models.BaseViewModel
 @{
     ViewBag.Title = "Login";
 }
@@ -11,17 +11,17 @@
     {
 
     <div>@Html.ValidationSummary(true, "The following errors occured while logging in:")</div>
-    <div>@Html.ValidationMessageFor(model => model.UserName)</div>
-    <div>@Html.ValidationMessageFor(model => model.Password)</div>
+    <div>@Html.ValidationMessageFor(model => model.AppUserVM.UserName)</div>
+    <div>@Html.ValidationMessageFor(model => model.AppUserVM.Password)</div>
 
         <table class="table">
             <tr>
-                <td class="firstcoll">@Html.LabelFor(model => model.UserName, "User Name:")<span class='required'>*</span></td>
-                <td>@Html.TextBoxFor(model => model.UserName, new { maxlength = 45 })</td>
+                <td class="firstcoll">@Html.LabelFor(model => model.AppUserVM.UserName, "User Name:")<span class='required'>*</span></td>
+                <td>@Html.TextBoxFor(model => model.AppUserVM.UserName, new { maxlength = 45 })</td>
             </tr>
             <tr>
-                <td class="firstcoll">@Html.LabelFor(model => model.Password, "Password:")<span class='required'>*</span></td>
-                <td>@Html.PasswordFor(model => model.Password, new { maxlength = 15 })</td>
+                <td class="firstcoll">@Html.LabelFor(model => model.AppUserVM.Password, "Password:")<span class='required'>*</span></td>
+                <td>@Html.PasswordFor(model => model.AppUserVM.Password, new { maxlength = 15 })</td>
             </tr>
             <tr>
                 <td class="firstcoll"></td>

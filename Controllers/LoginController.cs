@@ -18,11 +18,11 @@ namespace CJCProjectEstimatorMVC.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(AppUserViewModel user)
+        public ActionResult Index(BaseViewModel viewModel)
         {
             DBContext db = new DBContext();
 
-            AppUser appUser = db.AppUsers.Where(a => a.UserName == user.UserName).FirstOrDefault();
+            AppUser appUser = db.AppUsers.Where(a => a.UserName == viewModel.AppUserVM.UserName).FirstOrDefault();
 
             if (appUser == null)
             {
@@ -31,7 +31,7 @@ namespace CJCProjectEstimatorMVC.Controllers
             }
             else
             {
-                String passwordHash = Hash.getHashSha256(user.Password + appUser.PasswordSalt);
+                String passwordHash = Hash.getHashSha256(viewModel.AppUserVM.Password + appUser.PasswordSalt);
 
                 if (passwordHash == appUser.PasswordHash)
                 {
