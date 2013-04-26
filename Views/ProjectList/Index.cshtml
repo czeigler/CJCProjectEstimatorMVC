@@ -11,8 +11,14 @@
  @foreach (CJCProjectEstimatorMVC.Models.Project project in Model.Projects)
  {
    <tr>
-      <td>@project.Name</td>
-      <td><a id="removeProject" href="removeProject.php?id=$projectId">[Remove]</a></td>
+   <td>
+   @Html.ActionLink(project.Name, "Index", "ProjectEdit", new { ProjectId = project.ProjectId }, null)
+
+   </td>
+      <td>
+      @Html.ActionLink("[Remove]", "Remove", "ProjectEdit", new { ProjectId = project.ProjectId }, new { @class = "removeProject" } )
+
+      </td>
    </tr>
  }
  </tbody>
@@ -21,7 +27,7 @@
 
  <script>
      $(document).ready(function () {
-         $('#removeProject').click(function () {
+         $('.removeProject').click(function () {
              if (confirm("Are you sure you want to delete this Project?")) {
                  return true;
              }

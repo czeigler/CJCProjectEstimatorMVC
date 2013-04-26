@@ -1,18 +1,68 @@
-﻿@model CJCProjectEstimatorMVC.Models.Project
+﻿@model CJCProjectEstimatorMVC.Models.ProjectEditViewModel
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Project";
 }
 
-@{ Html.EnableClientValidation(); }
 
-    @using (Html.BeginForm("Index", "ProjectEdit"))
-    {
+<div class="content">
+
+<h4>Estimate Management Dashboard</h4>
 
 
+@using (Html.BeginForm("Index", "ProjectEdit"))
+{
     <div>@Html.ValidationSummary(true, "The following errors occured while creating a project:")</div>
-    <div>@Html.ValidationMessageFor(model => model.Name)</div>
-
-    @Html.LabelFor(model => model.Name, "Project Name:")<span class='required'>*</span>
-    @Html.TextBoxFor(model => model.Name, new { maxlength = 40 })
+    <div>@Html.ValidationMessageFor(model => model.projectLaborItem.Description)</div>
+    <div>@Html.ValidationMessageFor(model => model.projectLaborItem.Hours)</div>
+    <div>@Html.ValidationMessageFor(model => model.projectLaborItem.CostPerHour)</div>
+    <div>@Html.ValidationMessageFor(model => model.projectMaterial.Cost)</div>
+    <div>@Html.ValidationMessageFor(model => model.projectMaterial.Number)</div>
+    <div>@Html.ValidationMessageFor(model => model.projectMaterial.MaterialId)</div>
+    <div>@Html.ValidationMessageFor(model => model.projectMaterial.ProjectId)</div>
+    <div>@Html.ValidationMessageFor(model => model.projectMaterial.ProjectMaterialId)</div>
+    <div>@Html.ValidationMessageFor(model => model.projectLaborItem.ProjectLaborItemId)</div>
+    
+    @Html.LabelFor(model => model.project.Name, "Project Name:")<span class='required'>*</span>
+    @Html.TextBoxFor(model => model.project.Name, new { maxlength = 40 })
     <input type="submit" value="Save" />
-    }
+}
+    
+    <div class="dashboard2">
+        <div class="legend">Manage Labor</div>
+    
+
+@using (Html.BeginForm("AddProjectLaborItem", "ProjectEdit"))
+{
+    @Html.LabelFor(model => model.projectLaborItem.Description, "Description:")<span class='required'>*</span>
+    @Html.TextBoxFor(model => model.projectLaborItem.Description, new { maxlength = 50, size = 25 })    <br/>
+    @Html.LabelFor(model => model.projectLaborItem.Hours, "Labor Hours:")<span class='required'>*</span> 
+    @Html.TextBoxFor(model => model.projectLaborItem.Hours, new { maxlength = 7, size = 25 })    <br/>
+    @Html.LabelFor(model => model.projectLaborItem.CostPerHour, "Labor Rate:")<span class='required'>*</span> 
+    @Html.TextBoxFor(model => model.projectLaborItem.CostPerHour, new { maxlength = 7, size = 25 })    <br/>
+    @Html.HiddenFor(model => model.projectLaborItem.ProjectId)
+    //    @Html.HiddenFor(model => model.projectLaborItem.ProjectLaborItemId)
+    <input type="submit" class="input" value="Add Labor"/>
+}
+</div>
+<p />
+<div class="dashboardTable">Current Labor Line Items
+&nbsp;
+</div>
+    <div class="dashboard2">
+<div class="legend">Manage Materials</div>
+@using (Html.BeginForm("AddProjectMaterial", "ProjectEdit"))
+{
+    @Html.LabelFor(model => model.projectMaterial.MaterialId, "Material:")<span class='required'>*</span>
+    @Html.DropDownListFor(model => model.projectMaterial.MaterialId, new SelectList(CJCProjectEstimatorMVC.Models.ProjectEditViewModel.Materials, "Key", "Value"))
+<br/>
+    
+    @Html.LabelFor(model => model.projectMaterial.Cost, "Material Cost:")<span class='required'>*</span>
+    @Html.TextBoxFor(model => model.projectMaterial.Cost, new { maxlength = 7, size = 25 })    <br/>
+    @Html.LabelFor(model => model.projectMaterial.Number, "Material Quantity:")<span class='required'>*</span>
+    @Html.TextBoxFor(model => model.projectMaterial.Number, new { maxlength = 7, size = 25 })  <br/>  
+    @Html.HiddenFor(model => model.projectLaborItem.ProjectId)
+    @Html.HiddenFor(model => model.projectMaterial.ProjectMaterialId)
+    <input type="submit" class="input" value="Add Material"/>
+}
+
+</div>

@@ -24,27 +24,27 @@ namespace CJCProjectEstimatorMVC.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(AppUserViewModel user)
+        public ActionResult Index(SignupViewModel user)
         {
 
 
             DBContext db = new DBContext();
 
-            if (db.AppUsers.Where(a => a.UserName == user.UserName).FirstOrDefault() != null)
+            if (db.AppUsers.Where(a => a.UserName == user.AppUserVM.UserName).FirstOrDefault() != null)
             {
-                ModelState.AddModelError("UserName", "User Name \"" + user.UserName  + "\" is already being used");
+                ModelState.AddModelError("UserName", "User Name \"" + user.AppUserVM.UserName + "\" is already being used");
             }
 
             if (ModelState.IsValid)
             {
                 AppUser appUser = new AppUser();
 
-                appUser.FirstName = user.FirstName;
-                appUser.LastName = user.LastName;
-                appUser.UserName = user.UserName;
-                appUser.CompanyName = user.CompanyName;
+                appUser.FirstName = user.AppUserVM.FirstName;
+                appUser.LastName = user.AppUserVM.LastName;
+                appUser.UserName = user.AppUserVM.UserName;
+                appUser.CompanyName = user.AppUserVM.CompanyName;
                 appUser.PasswordSalt = DateTime.Now.ToString();
-                appUser.PasswordHash = Hash.getHashSha256(user.Password + appUser.PasswordSalt);
+                appUser.PasswordHash = Hash.getHashSha256(user.AppUserVM.Password + appUser.PasswordSalt);
 
                 
                 db.AppUsers.Add(appUser);
