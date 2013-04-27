@@ -9,12 +9,8 @@ namespace CJCProjectEstimatorMVC.Controllers
 {
     public class ProjectEditController : BaseController
     {
-        //
-        // GET: /ProjectEdit/
 
-
-        [HttpGet]
-        public ActionResult Index(Int32? ProjectId)
+        private ProjectEditViewModel load(Int32? ProjectId)
         {
             ProjectEditViewModel projectEditVM = new ProjectEditViewModel();
 
@@ -27,19 +23,39 @@ namespace CJCProjectEstimatorMVC.Controllers
 
             if (ProjectId != null)
             {
+                projectLaborItem.ProjectId = (Int32)ProjectId;
+                projectMaterial.ProjectId = (Int32)ProjectId;
                 project = db.Projects.Where(p => p.ProjectId == ProjectId).FirstOrDefault();
                 projectLaborItems = db.ProjectLaborItems.Where(p => p.ProjectId == project.ProjectId).ToList<ProjectLaborItem>();
+                projectMaterials = db.ProjectMaterials.Where(p => p.ProjectId == project.ProjectId).ToList<ProjectMaterial>();
+
             }
 
-
-
-            
             projectEditVM.project = project;
+            projectEditVM.projectLaborItem = projectLaborItem;
+            projectEditVM.projectMaterial = projectMaterial;
             projectEditVM.projectLaborItems = projectLaborItems;
             projectEditVM.projectMaterials = projectMaterials;
+            return projectEditVM;
+        }
 
+
+
+
+
+
+
+        //
+        // GET: /ProjectEdit/
+
+
+        [HttpGet]
+        public ActionResult Index(Int32? ProjectId)
+        {
+            ProjectEditViewModel projectEditVM = load(ProjectId);
             return View("Index", projectEditVM);
         }
+
 
         [HttpPost]        
         public ActionResult Index(ProjectEditViewModel projectEditVM)
@@ -60,8 +76,7 @@ namespace CJCProjectEstimatorMVC.Controllers
                 
             }
 
-            projectEditVM.projectLaborItem = new ProjectLaborItem();
-            projectEditVM.projectLaborItem.ProjectId = projectEditVM.project.ProjectId;
+            projectEditVM = load(projectEditVM.project.ProjectId);
 
             return View("Index", projectEditVM);            
         
@@ -87,11 +102,21 @@ namespace CJCProjectEstimatorMVC.Controllers
         [HttpPost] 
         public ActionResult AddProjectMaterial(ProjectEditViewModel projectEditVM)
         {
+            DBContext db = new DBContext();
+            if (ModelState.IsValid)
+            {
+
+                db.ProjectMaterials.Add(projectEditVM.projectMaterial);
+                db.SaveChanges();
+
+            }
+
+
             return View("Index");
         }
 
         [HttpGet]
-        public ActionResult Remove(Int32? ProjectId)
+        public ActionResult RemoveProject(Int32? ProjectId)
         {
             DBContext db = new DBContext();
             

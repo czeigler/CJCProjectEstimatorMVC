@@ -66,3 +66,60 @@
 }
 
 </div>
+
+<div>
+<table>
+<thead><tr>
+<th>Description</th>
+<th>Hours</th>
+<th>Rate</th>
+</tr>
+</thead>
+<tbody>
+ @foreach (CJCProjectEstimatorMVC.Models.ProjectMaterial projectMaterial in Model.projectMaterials)
+ {
+   <tr>
+   <td>
+   @projectMaterial.MaterialId
+   @*@Html.ActionLink(projectLaborItem.Description, "Index", "ProjectEdit", new { ProjectId = project.ProjectId }, null)*@
+
+   </td>
+      <td>
+      @*@Html.ActionLink("[Remove]", "Remove", "ProjectEdit", new { ProjectId = project.ProjectId }, new { @class = "removeProject" } )*@
+
+      </td>
+   </tr>
+ }
+
+</tbody>
+</table>
+</div>
+
+
+<div>
+<table>
+<thead><tr>
+<th>Description</th>
+<th>Hours</th>
+<th>Rate</th>
+</tr>
+</thead>
+<tbody>
+ @foreach (CJCProjectEstimatorMVC.Models.ProjectLaborItem projectLaborItem in Model.projectLaborItems)
+ {
+   <tr>
+   <td>
+   @projectLaborItem.Description
+   @*@Html.ActionLink(projectLaborItem.Description, "Index", "ProjectEdit", new { ProjectId = project.ProjectId }, null)*@
+
+   </td>
+      <td>
+      @*@Html.ActionLink("[Remove]", "Remove", "ProjectEdit", new { ProjectId = project.ProjectId }, new { @class = "removeProject" } )*@
+
+      </td>
+   </tr>
+ }
+
+</tbody>
+</table>
+</div>
