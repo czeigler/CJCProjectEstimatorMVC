@@ -17,16 +17,18 @@ namespace CJCProjectEstimatorMVC.Models
         public List<ProjectMaterial> projectMaterials { get; set; }
 
         static ProjectEditViewModel() {
-            Materials = new Dictionary<int, string>()
+            Materials = new Dictionary<int, string>();
+
+            DBContext db = new DBContext();
+            IOrderedEnumerable<Material> materialsList = (IOrderedEnumerable<Material>) db.Materials.ToList().OrderBy(x => x.Description);
+
+            foreach (Material m in materialsList)
             {
-                { 0, "No Preference"},
-                { 1, "I hate eggs"},
-                { 2, "Over Easy"},
-                { 3, "Sunny Side Up"},
-                { 4, "Scrambled"},
-                { 5, "Hard Boiled"},
-                { 6, "Eggs Benedict"}
-            };
+                Materials.Add(m.MaterialId, m.Description);
+            }
+
+
+    
         }
 
     }

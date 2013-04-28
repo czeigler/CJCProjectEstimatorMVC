@@ -1,14 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
 namespace CJCProjectEstimatorMVC.Controllers
 {
-    [CustomAuthorize]
-    public class ProjectHomeController : BaseController
+    public class ReportController : Controller
     {
         //
-        // GET: /ProjectHome/
+        // GET: /Report/
 
         public ActionResult Index()
         {
