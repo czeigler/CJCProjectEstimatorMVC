@@ -6,12 +6,26 @@ using System.Web.Mvc;
 
 namespace CJCProjectEstimatorMVC.Controllers
 {
-    public class BaseController : Controller
+    abstract public class BaseController : Controller
     {
+        public BaseController()
+        {
+            if (getCurrentUserId() == null && getRequiresLogin())
+            {
+                Redirect("~/Login");
+            }
+        }
 
         protected Int32? getCurrentUserId()
         {
-            return (Int32?) Session["UserId"];
+            if (Session != null && Session["UserId"] != null)
+            {
+                return (Int32?)Session["UserId"];
+            }
+            else
+            {
+                return null;
+            }
         }
 
         protected Boolean isLoggedIn()
@@ -29,7 +43,7 @@ namespace CJCProjectEstimatorMVC.Controllers
             Session["UserId"] = null;
         }
 
-
+        //protected abstract bool getRequiresLogin();
 
     }
 }

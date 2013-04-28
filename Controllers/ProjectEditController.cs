@@ -40,11 +40,6 @@ namespace CJCProjectEstimatorMVC.Controllers
         }
 
 
-
-
-
-
-
         //
         // GET: /ProjectEdit/
 
@@ -95,8 +90,8 @@ namespace CJCProjectEstimatorMVC.Controllers
 
             }
 
-
-            return View("Index");
+            projectEditVM = load(projectEditVM.projectLaborItem.ProjectId);
+            return View("Index", projectEditVM);
         }
 
         [HttpPost] 
@@ -111,9 +106,63 @@ namespace CJCProjectEstimatorMVC.Controllers
 
             }
 
-
-            return View("Index");
+            projectEditVM = load(projectEditVM.projectMaterial.ProjectId);
+            return View("Index", projectEditVM);
         }
+
+
+        [HttpGet]
+        public ActionResult RemoveProjectLaborItem(Int32 ProjectLaborItemId)
+        {
+            DBContext db = new DBContext();
+
+            ProjectLaborItem projectLaborItem = db.ProjectLaborItems.Where(p => p.ProjectLaborItemId == ProjectLaborItemId).FirstOrDefault();
+
+            Int32? ProjectId = null;
+
+            if (projectLaborItem != null)
+            {
+                ProjectId = projectLaborItem.ProjectId;
+                Project project = db.Projects.Where(p => p.ProjectId == ProjectId).FirstOrDefault();
+                if (project != null && project.AppUserId.Equals(getCurrentUserId()))
+                {
+                    db.ProjectLaborItems.Remove(projectLaborItem);
+                    db.SaveChanges();
+                }
+
+            }
+
+            ProjectEditViewModel projectEditVM = load(ProjectId);
+            return View("Index", projectEditVM);
+        }
+
+        [HttpGet]
+        public ActionResult RemoveProjectMaterial(Int32 ProjectMaterialId)
+        {
+            DBContext db = new DBContext();
+
+            ProjectMaterial projectMaterial = db.ProjectMaterials.Where(p => p.ProjectMaterialId == ProjectMaterialId).FirstOrDefault();
+
+            Int32? ProjectId = null;
+
+            if (projectMaterial != null)
+            {
+                ProjectId = projectMaterial.ProjectId;
+                Project project = db.Projects.Where(p => p.ProjectId == ProjectId).FirstOrDefault();
+                if (project != null && project.AppUserId.Equals(getCurrentUserId()))
+                {
+                    db.ProjectMaterials.Remove(projectMaterial);
+                    db.SaveChanges();
+                }
+
+            }
+
+            ProjectEditViewModel projectEditVM = load(ProjectId);
+            return View("Index", projectEditVM);
+        }
+
+
+
 
         [HttpGet]
         public ActionResult RemoveProject(Int32? ProjectId)
@@ -122,13 +171,11 @@ namespace CJCProjectEstimatorMVC.Controllers
             
             Project project = db.Projects.Where(p => p.ProjectId == ProjectId).FirstOrDefault();
 
-            if (project.AppUserId.Equals(getCurrentUserId()))
+            if (project != null && project.AppUserId.Equals(getCurrentUserId()))
             {
-                if (project != null)
-                {
-                    db.Projects.Remove(project);
-                    db.SaveChanges();
-                }
+                db.Projects.Remove(project);
+                db.SaveChanges();
+
             }
 
             return Redirect("~/ProjectList");

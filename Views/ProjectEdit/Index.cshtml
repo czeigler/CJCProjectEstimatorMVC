@@ -40,14 +40,11 @@
     @Html.LabelFor(model => model.projectLaborItem.CostPerHour, "Labor Rate:")<span class='required'>*</span> 
     @Html.TextBoxFor(model => model.projectLaborItem.CostPerHour, new { maxlength = 7, size = 25 })    <br/>
     @Html.HiddenFor(model => model.projectLaborItem.ProjectId)
-    //    @Html.HiddenFor(model => model.projectLaborItem.ProjectLaborItemId)
+    @Html.HiddenFor(model => model.projectLaborItem.ProjectLaborItemId)
     <input type="submit" class="input" value="Add Labor"/>
 }
 </div>
 <p />
-<div class="dashboardTable">Current Labor Line Items
-&nbsp;
-</div>
     <div class="dashboard2">
 <div class="legend">Manage Materials</div>
 @using (Html.BeginForm("AddProjectMaterial", "ProjectEdit"))
@@ -60,14 +57,19 @@
     @Html.TextBoxFor(model => model.projectMaterial.Cost, new { maxlength = 7, size = 25 })    <br/>
     @Html.LabelFor(model => model.projectMaterial.Number, "Material Quantity:")<span class='required'>*</span>
     @Html.TextBoxFor(model => model.projectMaterial.Number, new { maxlength = 7, size = 25 })  <br/>  
-    @Html.HiddenFor(model => model.projectLaborItem.ProjectId)
+    @Html.HiddenFor(model => model.projectMaterial.ProjectId)
     @Html.HiddenFor(model => model.projectMaterial.ProjectMaterialId)
     <input type="submit" class="input" value="Add Material"/>
 }
 
 </div>
 
+</div>
+
+
 <div>
+<div class="dashboardTable">Current Materials</div>
+
 <table>
 <thead><tr>
 <th>Description</th>
@@ -79,13 +81,18 @@
  @foreach (CJCProjectEstimatorMVC.Models.ProjectMaterial projectMaterial in Model.projectMaterials)
  {
    <tr>
-   <td>
-   @projectMaterial.MaterialId
-   @*@Html.ActionLink(projectLaborItem.Description, "Index", "ProjectEdit", new { ProjectId = project.ProjectId }, null)*@
-
-   </td>
+       <td>
+       @Html.ActionLink(projectMaterial.ProjectMaterialId.ToString(), "Index", "ProjectEdit", new { ProjectMaterialId = projectMaterial.ProjectMaterialId }, null)
+       </td>
+       <td>
+       @projectMaterial.Number
+       </td>
+       <td>
+       @projectMaterial.Cost
+       </td>
       <td>
-      @*@Html.ActionLink("[Remove]", "Remove", "ProjectEdit", new { ProjectId = project.ProjectId }, new { @class = "removeProject" } )*@
+
+      @Html.ActionLink("[Remove]", "RemoveProjectMaterial", "ProjectEdit", new { ProjectMaterialId = projectMaterial.ProjectMaterialId }, new { @class = "removeProject" })
 
       </td>
    </tr>
@@ -97,6 +104,8 @@
 
 
 <div>
+<div class="dashboardTable">Current Labor Line Items</div>
+
 <table>
 <thead><tr>
 <th>Description</th>
@@ -108,14 +117,17 @@
  @foreach (CJCProjectEstimatorMVC.Models.ProjectLaborItem projectLaborItem in Model.projectLaborItems)
  {
    <tr>
-   <td>
-   @projectLaborItem.Description
-   @*@Html.ActionLink(projectLaborItem.Description, "Index", "ProjectEdit", new { ProjectId = project.ProjectId }, null)*@
-
-   </td>
+       <td>
+       @Html.ActionLink(projectLaborItem.Description, "Index", "ProjectEdit", new { ProjectLaborItemId = projectLaborItem.ProjectLaborItemId }, null)
+       </td>
       <td>
-      @*@Html.ActionLink("[Remove]", "Remove", "ProjectEdit", new { ProjectId = project.ProjectId }, new { @class = "removeProject" } )*@
-
+      @projectLaborItem.Hours
+      </td>
+      <td>
+      @projectLaborItem.CostPerHour
+      </td>
+      <td>
+      @Html.ActionLink("[Remove]", "RemoveProjectLaborItem", "ProjectEdit", new { ProjectLaborItemId = projectLaborItem.ProjectLaborItemId }, new { @class = "removeProject" })
       </td>
    </tr>
  }
@@ -123,3 +135,18 @@
 </tbody>
 </table>
 </div>
+
+
+
+ <script>
+     $(document).ready(function () {
+         $('.removeProject').click(function () {
+             if (confirm("Are you sure you want to delete this?")) {
+                 return true;
+             }
+             return false;
+         });
+
+     });
+    
+</script>
