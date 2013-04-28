@@ -8,6 +8,7 @@ using System.Data.Objects;
 
 namespace CJCProjectEstimatorMVC.Controllers
 {
+    [CustomAuthorize]
     public class ProjectListController : BaseController
     {
         //

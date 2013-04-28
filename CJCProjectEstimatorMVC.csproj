@@ -142,6 +142,7 @@
     <Compile Include="Controllers\ProjectHomeController.cs" />
     <Compile Include="Controllers\ProjectListController.cs" />
     <Compile Include="Controllers\SignupController.cs" />
+    <Compile Include="CustomAuthorizeAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

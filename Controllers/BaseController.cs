@@ -8,13 +8,6 @@ namespace CJCProjectEstimatorMVC.Controllers
 {
     abstract public class BaseController : Controller
     {
-        public BaseController()
-        {
-            if (getCurrentUserId() == null && getRequiresLogin())
-            {
-                Redirect("~/Login");
-            }
-        }
 
         protected Int32? getCurrentUserId()
         {

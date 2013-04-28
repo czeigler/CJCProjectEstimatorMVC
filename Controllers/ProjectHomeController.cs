@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace CJCProjectEstimatorMVC.Controllers
 {
+    [CustomAuthorize]
     public class ProjectHomeController : BaseController
     {
         //

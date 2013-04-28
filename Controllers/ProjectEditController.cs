@@ -7,6 +7,7 @@ using CJCProjectEstimatorMVC.Models;
 
 namespace CJCProjectEstimatorMVC.Controllers
 {
+    [CustomAuthorize]
     public class ProjectEditController : BaseController
     {
 
