@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "Project";
 }
-
+<div class="container">
 
 <div class="content">
 
@@ -43,8 +43,42 @@
     @Html.HiddenFor(model => model.projectLaborItem.ProjectLaborItemId)
     <input type="submit" class="input" value="Add Labor"/>
 }
-</div>
 <p />
+
+        
+<div class="dashboardTable">Current Labor Line Items
+
+<table class="projectItems">
+<thead><tr>
+<th>Description</th>
+<th>Hours</th>
+<th>Rate</th>
+</tr>
+</thead>
+<tbody>
+ @foreach (CJCProjectEstimatorMVC.Models.ProjectLaborItem projectLaborItem in Model.projectLaborItems)
+ {
+   <tr>
+       <td>
+       @Html.ActionLink(projectLaborItem.Description, "Index", "ProjectEdit", new { ProjectLaborItemId = projectLaborItem.ProjectLaborItemId }, null)
+       </td>
+      <td>
+      @projectLaborItem.Hours
+      </td>
+      <td>
+      @projectLaborItem.CostPerHour
+      </td>
+      <td>
+      @Html.ActionLink("[Remove]", "RemoveProjectLaborItem", "ProjectEdit", new { ProjectLaborItemId = projectLaborItem.ProjectLaborItemId }, new { @class = "removeProject" })
+      </td>
+   </tr>
+ }
+
+</tbody>
+</table></div>
+ </div>
+
+
     <div class="dashboard2">
 <div class="legend">Manage Materials</div>
 @using (Html.BeginForm("AddProjectMaterial", "ProjectEdit"))
@@ -62,15 +96,9 @@
     <input type="submit" class="input" value="Add Material"/>
 }
 
-</div>
+        <div class="dashboardTable">Current Materials
 
-</div>
-
-
-<div>
-<div class="dashboardTable">Current Materials</div>
-
-<table>
+<table class="projectItems">
 <thead><tr>
 <th>Description</th>
 <th>Hours</th>
@@ -99,42 +127,15 @@
  }
 
 </tbody>
-</table>
+</table></div>
+ 
+</div><p class="contentClear">Return to the <a href="home.php">Projects Page</a></P>
+</div>
 </div>
 
 
-<div>
-<div class="dashboardTable">Current Labor Line Items</div>
 
-<table>
-<thead><tr>
-<th>Description</th>
-<th>Hours</th>
-<th>Rate</th>
-</tr>
-</thead>
-<tbody>
- @foreach (CJCProjectEstimatorMVC.Models.ProjectLaborItem projectLaborItem in Model.projectLaborItems)
- {
-   <tr>
-       <td>
-       @Html.ActionLink(projectLaborItem.Description, "Index", "ProjectEdit", new { ProjectLaborItemId = projectLaborItem.ProjectLaborItemId }, null)
-       </td>
-      <td>
-      @projectLaborItem.Hours
-      </td>
-      <td>
-      @projectLaborItem.CostPerHour
-      </td>
-      <td>
-      @Html.ActionLink("[Remove]", "RemoveProjectLaborItem", "ProjectEdit", new { ProjectLaborItemId = projectLaborItem.ProjectLaborItemId }, new { @class = "removeProject" })
-      </td>
-   </tr>
- }
 
-</tbody>
-</table>
-</div>
 
 
 
