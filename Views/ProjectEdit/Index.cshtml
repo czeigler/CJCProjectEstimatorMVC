@@ -24,6 +24,7 @@
     
     @Html.LabelFor(model => model.project.Name, "Project Name:")<span class='required'>*</span>
     @Html.TextBoxFor(model => model.project.Name, new { maxlength = 40 })
+    @Html.HiddenFor(model => model.project.ProjectId)
     <input type="submit" value="Save" />
 }
     
