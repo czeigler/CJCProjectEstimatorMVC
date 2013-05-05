@@ -22,26 +22,39 @@ namespace CJCProjectEstimatorMVC.Controllers
             Double totalCost = 0;
 
 
+            List<Project> Projects = db.Projects.Where(p => p.AppUserId == currentUserId).ToList<Project>();
+
+            var projects = from p in Projects
+                           join pl in db.ProjectLaborItems on p.ProjectId equals pl.ProjectId into plg
+                           join pm in db.ProjectMaterials on p.ProjectId equals pm.ProjectId into pmg
+                           select new
+                           {
+                               Name = p.Name,
+                               CountLabor = plg.Select(a => a.ProjectId).Count(),
+                               CountMaterial = pmg.Select(a => a.ProjectId).Count(),
+                               CostMaterial = pmg.Select(a => (Double?)(a.Cost == null ? 0 : a.Cost) * (a.Number == null ? 0 : a.Number)).Sum(),
+                               CostLabor = plg.Select(a => (Double?)(a.CostPerHour == null ? 0 : a.CostPerHour) * (a.Hours == null ? 0 : a.Hours)).Sum()
+                           };
 
 
-            String query = "select p.* from Projects p join ProjectMaterials pm on p.ProjectId = pm.ProjectId where AppUserId = " + currentUserId;
-
-            List<Project> Projects = db.Projects.ToList<Project>();
-
-            var projects = from p in Projects where p.AppUserId == currentUserId select p;
-
-
-            foreach (Project project in projects)
+            foreach (var project in projects)
             {
                 ProjectReportLineViewModel ProjectReportLineItem = new ProjectReportLineViewModel();
                 ProjectReportLineItem.Name = project.Name;
-                ProjectReportLineItem.QuantityOfMaterials = 0;
-                ProjectReportLineItem.QuantityOfTasks = 0;
+                ProjectReportLineItem.QuantityOfMaterials = project.CountMaterial;
+                ProjectReportLineItem.QuantityOfTasks = project.CountLabor;
+                ProjectReportLineItem.TotalLaborCost = project.CostLabor == null ? 0D : (Double) project.CostLabor;
+                ProjectReportLineItem.TotalMaterialCost = project.CostMaterial == null ? 0D : (Double) project.CostMaterial;
+                ProjectReportLineItem.TotalCost = ProjectReportLineItem.TotalLaborCost + ProjectReportLineItem.TotalMaterialCost;
                 projectReportViewModel.Projects.Add(ProjectReportLineItem);
+                ++projectReportViewModel.numProjects;
+                projectReportViewModel.totalProjectCost += ProjectReportLineItem.TotalCost;
 
-                 //totalCost += 
-                
-
+            }
+            if (projectReportViewModel.numProjects > 0) {
+                projectReportViewModel.avgProjectCost = projectReportViewModel.totalProjectCost / projectReportViewModel.numProjects;
+            } else {
+                projectReportViewModel.avgProjectCost = 0;
             }
 
             return View(projectReportViewModel);
