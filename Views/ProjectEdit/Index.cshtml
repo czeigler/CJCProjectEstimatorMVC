@@ -42,7 +42,9 @@
     @Html.TextBoxFor(model => model.projectLaborItem.CostPerHour, new { maxlength = 7, size = 25 })    <br/>
     @Html.HiddenFor(model => model.projectLaborItem.ProjectId)
     @Html.HiddenFor(model => model.projectLaborItem.ProjectLaborItemId)
-    <input type="submit" class="input" value="Add Labor"/>
+
+    <input type="submit" class="input addButton" value="Add Labor"/>
+
 }
 <p />
 
@@ -95,7 +97,7 @@
     @Html.TextBoxFor(model => model.projectMaterial.Number, new { maxlength = 7, size = 25 })  <br/>  
     @Html.HiddenFor(model => model.projectMaterial.ProjectId)
     @Html.HiddenFor(model => model.projectMaterial.ProjectMaterialId)
-    <input type="submit" class="input" value="Add Material"/>
+    <input type="submit" class="input addButton" value="Add Material" />
 }
 
         <div class="dashboardTable">Current Materials
@@ -151,6 +153,18 @@
              return false;
          });
 
-     });
+     
     
+     @if (Model.project == null || Model.project.ProjectId < 1)
+     {
+         <text>
+         $('.addButton').click(function () {
+             alert("Please save a new project before adding labor or materials.");
+             return false;
+         });
+         </text>
+     }
+
+
+     });
 </script>
