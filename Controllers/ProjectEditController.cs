@@ -77,14 +77,18 @@ namespace CJCProjectEstimatorMVC.Controllers
                     db.Projects.Add(project);
                 }
                 project.Name = projectEditVM.project.Name;
-                project.AppUserId = (int) getCurrentUserId();
-                
+                project.AppUserId = (int)getCurrentUserId();
+
                 db.SaveChanges();
                 projectEditVM = load(project.ProjectId);
-                
-            }
+                projectEditVM.project.ProjectId = project.ProjectId;
 
-            projectEditVM = load(projectEditVM.project.ProjectId);
+            }
+            else
+            {
+
+                projectEditVM = load(projectEditVM.project.ProjectId);
+            }
 
             return View("Index", projectEditVM);            
         

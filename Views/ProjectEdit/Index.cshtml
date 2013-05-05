@@ -61,7 +61,7 @@
  {
    <tr>
        <td>
-       @Html.ActionLink(projectLaborItem.Description, "Index", "ProjectEdit", new { ProjectLaborItemId = projectLaborItem.ProjectLaborItemId }, null)
+       @projectLaborItem.Description
        </td>
       <td>
       @projectLaborItem.Hours
@@ -111,7 +111,7 @@
  {
    <tr>
        <td>
-       @Html.ActionLink(projectMaterial.ProjectMaterialId.ToString(), "Index", "ProjectEdit", new { ProjectMaterialId = projectMaterial.ProjectMaterialId }, null)
+       @projectMaterial.ProjectMaterialId
        </td>
        <td>
        @projectMaterial.Number

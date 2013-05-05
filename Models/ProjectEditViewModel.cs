@@ -24,7 +24,7 @@ namespace CJCProjectEstimatorMVC.Models
 
             foreach (Material m in materialsList)
             {
-                Materials.Add(m.MaterialId, m.Description);
+                Materials.Add(m.MaterialId, m.Name);
             }
 
 
