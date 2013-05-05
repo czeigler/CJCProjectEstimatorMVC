@@ -14,32 +14,30 @@
    <div class="dashboard">
     <h4 class="legend">Run Projects Report</h4>
     <hr />
-    <form name="form2" method="post" action="report.php" value="clickable button"> 
-  
        <p>
          @Html.ActionLink("Run Report", "Index", "Report")
        </p>
-    </form>
   </div>
   <div class="dashboard">
     <h4 class="legend">Search All Projects</h4>
     <hr />
-    <form name="form2" method="post" action="searchResults.php" /> 
-       <p>Search Term:
+    <form method="get" action="~/ProjectList">
+@*    @Html.BeginForm("Index", "ProjectList", FormMethod.Get)
+    {
+*@       <p>Search Term:
          <input name="projectName" type="text" id="projectName" size="17" />
        </p>
        <p>
          <input type="submit" class="input" name="Search" id="Search" value="Go" />
        </p>
+    @*}*@
     </form>
   </div>
   <div class="dashboard">
     <h4 class="legend">Create a new project<br />
     </h4>
     <hr>
-    
     @Html.ActionLink("Create Project", "Index", "ProjectEdit")
-     
-
-</div><div class="contentClear"><p>Results will be displayed on the next page.</p></div>
+  </div>
+    <div class="contentClear"><p>Results will be displayed on the next page.</p></div>
   </div>
