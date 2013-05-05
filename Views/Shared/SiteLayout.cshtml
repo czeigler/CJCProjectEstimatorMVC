@@ -44,8 +44,13 @@ else
     <a href="~/ProjectHome/" class="navLink">Home</a>
 }
  |
-    <a href="~/About/" class="navLink">About</a> |  
-    <a href="~/Signup/" class="navLink">Sign-up</a> |
+    <a href="~/About/" class="navLink">About</a> 
+
+@if (Session["UserId"] == null)
+{        
+    <span> |   
+    <a href="~/Signup/" class="navLink">Sign-up</a> | </span>
+}
     </div>
         @RenderBody()    
 </div>

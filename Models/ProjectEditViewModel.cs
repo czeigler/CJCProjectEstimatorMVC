@@ -12,7 +12,8 @@ namespace CJCProjectEstimatorMVC.Models
         public Project project { get; set; }
         public ProjectLaborItem projectLaborItem { get; set; }
         public ProjectMaterial projectMaterial { get; set; }
-
+        
+        public List<ProjectMaterialViewModel> projectMaterialViewModels { get; set; }
         public List<ProjectLaborItem> projectLaborItems { get; set; }
         public List<ProjectMaterial> projectMaterials { get; set; }
 

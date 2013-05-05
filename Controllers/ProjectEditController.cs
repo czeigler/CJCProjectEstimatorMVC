@@ -21,6 +21,7 @@ namespace CJCProjectEstimatorMVC.Controllers
             ProjectMaterial projectMaterial = new ProjectMaterial();
             List<ProjectLaborItem> projectLaborItems = new List<ProjectLaborItem>();
             List<ProjectMaterial> projectMaterials = new List<ProjectMaterial>();
+            List<ProjectMaterialViewModel> projectMaterialViewModels = new List<ProjectMaterialViewModel>();
 
             if (ProjectId != null && ProjectId > 0)
             {
@@ -29,6 +30,16 @@ namespace CJCProjectEstimatorMVC.Controllers
                 project = db.Projects.Where(p => p.ProjectId == ProjectId).FirstOrDefault();
                 projectLaborItems = db.ProjectLaborItems.Where(p => p.ProjectId == project.ProjectId).ToList<ProjectLaborItem>();
                 projectMaterials = db.ProjectMaterials.Where(p => p.ProjectId == project.ProjectId).ToList<ProjectMaterial>();
+                foreach (ProjectMaterial pm in projectMaterials)
+                {
+                    Material pmLookup = db.Materials.Where(m => m.MaterialId == pm.MaterialId).First();
+                    ProjectMaterialViewModel projectMaterialViewModel = new ProjectMaterialViewModel();
+                    projectMaterialViewModel.Cost = pm.Cost;
+                    projectMaterialViewModel.Number = pm.Number;
+                    projectMaterialViewModel.Name = pmLookup.Name;
+                    projectMaterialViewModels.Add(projectMaterialViewModel);
+
+                }
 
             }
 
@@ -37,6 +48,7 @@ namespace CJCProjectEstimatorMVC.Controllers
             projectEditVM.projectMaterial = projectMaterial;
             projectEditVM.projectLaborItems = projectLaborItems;
             projectEditVM.projectMaterials = projectMaterials;
+            projectEditVM.projectMaterialViewModels = projectMaterialViewModels;
             return projectEditVM;
         }
 

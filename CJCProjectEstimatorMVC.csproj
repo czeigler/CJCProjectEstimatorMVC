@@ -150,6 +150,7 @@
     <Compile Include="Hash.cs" />
     <Compile Include="Models\AppUser.cs" />
     <Compile Include="Models\BaseViewModel.cs" />
+    <Compile Include="Models\ProjectMaterialViewModel.cs" />
     <Compile Include="Models\ProjectReportLineViewModel.cs" />
     <Compile Include="Models\ProjectReportViewModel.cs" />
     <Compile Include="Models\ProjectEditViewModel.cs" />

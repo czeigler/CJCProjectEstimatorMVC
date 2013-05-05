@@ -54,20 +54,21 @@
 <th>Description</th>
 <th>Hours</th>
 <th>Rate</th>
+<th></th>
 </tr>
 </thead>
 <tbody>
  @foreach (CJCProjectEstimatorMVC.Models.ProjectLaborItem projectLaborItem in Model.projectLaborItems)
  {
    <tr>
-       <td>
+       <td style="text-align:left;">
        @projectLaborItem.Description
        </td>
       <td>
       @projectLaborItem.Hours
       </td>
       <td>
-      @projectLaborItem.CostPerHour
+      @String.Format("{0:c}", projectLaborItem.CostPerHour)
       </td>
       <td>
       @Html.ActionLink("[Remove]", "RemoveProjectLaborItem", "ProjectEdit", new { ProjectLaborItemId = projectLaborItem.ProjectLaborItemId }, new { @class = "removeProject" })
@@ -101,27 +102,28 @@
 
 <table class="projectItems">
 <thead><tr>
-<th>Description</th>
-<th>Hours</th>
-<th>Rate</th>
+<th>Name</th>
+<th>Number</th>
+<th>Cost</th>
+<th></th>
 </tr>
 </thead>
 <tbody>
- @foreach (CJCProjectEstimatorMVC.Models.ProjectMaterial projectMaterial in Model.projectMaterials)
+ @foreach (CJCProjectEstimatorMVC.Models.ProjectMaterialViewModel projectMaterialViewModel in Model.projectMaterialViewModels)
  {
    <tr>
-       <td>
-       @projectMaterial.ProjectMaterialId
+       <td style="text-align:left;">
+       @projectMaterialViewModel.Name
        </td>
        <td>
-       @projectMaterial.Number
+       @projectMaterialViewModel.Number
        </td>
        <td>
-       @projectMaterial.Cost
+       @String.Format("{0:c}", projectMaterialViewModel.Cost)
        </td>
       <td>
 
-      @Html.ActionLink("[Remove]", "RemoveProjectMaterial", "ProjectEdit", new { ProjectMaterialId = projectMaterial.ProjectMaterialId }, new { @class = "removeProject" })
+      @Html.ActionLink("[Remove]", "RemoveProjectMaterial", "ProjectEdit", new { ProjectMaterialId = projectMaterialViewModel.ProjectMaterialId }, new { @class = "removeProject" })
 
       </td>
    </tr>
@@ -130,7 +132,7 @@
 </tbody>
 </table></div>
  
-</div><p class="contentClear">Return to the <a href="home.php">Projects Page</a></P>
+</div><div class="contentClear"><p>Return to the @Html.ActionLink("Projects Page", "Index", "ProjectHome")</p></div>
 </div>
 </div>
 
