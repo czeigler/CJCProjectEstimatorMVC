@@ -52,7 +52,7 @@ namespace CJCProjectEstimatorMVC.Controllers
 
                 setLoggedIn(appUser.Id);
 
-                return Redirect("~/Signup/Thankyou");
+                return Redirect("~/ProjectHome");
             }
             else
             {
