@@ -25,17 +25,15 @@
         <tr>
             <td>@project.Name</td>
             <td class="numberColumn">@project.QuantityOfMaterials</td>
-            <td class="numberColumn">@project.TotalMaterialCost</td>
+            <td class="numberColumn">@String.Format("{0:c}", project.TotalMaterialCost)</td>
             <td class="numberColumn">@project.QuantityOfTasks</td>
-            <td class="numberColumn">@project.TotalLaborCost</td>
-            <td class="numberColumn">@project.TotalCost</td>
+            <td class="numberColumn">@String.Format("{0:c}", project.TotalLaborCost)</td>
+            <td class="numberColumn">@String.Format("{0:c}", project.TotalCost)</td>
         </tr>
 
     }
 }
 
-@*
-?>
     <tbody>
     <tfoot>
         <tr>
@@ -44,7 +42,7 @@
             <td></td>
             <td></td>
             <td style="border-top: solid 2px black !important;">Total:</td>
-            <td  style="border-top: solid 2px black !important;"><?php echo money_format($totalCostOfProjects) ?></td>
+            <td  style="border-top: solid 2px black !important;">@String.Format("{0:c}", Model.totalProjectCost)</td>
         </tr>
         <tr>
             <td></td>
@@ -52,19 +50,19 @@
             <td></td>
             <td></td>
             <td>Num. Projects:</td>
-            <td><?php echo $numberOfProjects ?></td>
+            <td>@Model.numProjects</td>
         </tr>        
-<?php if($numberOfProjects != 0) {?>
+@if (Model.numProjects > 0)
+{
         <tr>
             <td></td>
             <td></td>
             <td></td>
             <td></td>
             <td>Avg. Project Cost:</td>
-            <td><?php echo money_format($totalCostOfProjects/$numberOfProjects) ?></td>
+            <td>@String.Format("{0:c}", Model.avgProjectCost)</td>
         </tr>
-<?php } ?>
-*@        
+}
     </tfoot>
     
 </table>
