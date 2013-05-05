@@ -20,11 +20,11 @@ namespace CJCProjectEstimatorMVC.Models
             Materials = new Dictionary<int, string>();
 
             DBContext db = new DBContext();
-            IOrderedEnumerable<Material> materialsList = (IOrderedEnumerable<Material>) db.Materials.ToList().OrderBy(x => x.Description);
+            IOrderedEnumerable<Material> materialsList = (IOrderedEnumerable<Material>) db.Materials.ToList().OrderBy(x => x.Name);
 
             foreach (Material m in materialsList)
             {
-                Materials.Add(m.MaterialId, m.Description);
+                Materials.Add(m.MaterialId, m.Name);
             }
 
 

@@ -22,7 +22,7 @@ namespace CJCProjectEstimatorMVC.Controllers
             List<ProjectLaborItem> projectLaborItems = new List<ProjectLaborItem>();
             List<ProjectMaterial> projectMaterials = new List<ProjectMaterial>();
 
-            if (ProjectId != null)
+            if (ProjectId != null && ProjectId > 0)
             {
                 projectLaborItem.ProjectId = (Int32)ProjectId;
                 projectMaterial.ProjectId = (Int32)ProjectId;
@@ -58,21 +58,37 @@ namespace CJCProjectEstimatorMVC.Controllers
         {
 
             DBContext db = new DBContext();
-
-            if (db.Projects.Where(p => p.Name == projectEditVM.project.Name).FirstOrDefault() != null)
+             
+            if (db.Projects.Where(p => p.Name == projectEditVM.project.Name).Where(p => p.ProjectId != projectEditVM.project.ProjectId).FirstOrDefault() != null)
             {
                 ModelState.AddModelError("project.Name", "Project Name \"" + projectEditVM.project.Name + "\" is already being used");
             }
 
+            Project project;
             if (ModelState.IsValid)
             {
-                projectEditVM.project.AppUserId = (int) getCurrentUserId();
-                db.Projects.Add(projectEditVM.project);
-                db.SaveChanges();
-                
-            }
+                project = new Project();
+                if (projectEditVM.project.ProjectId != null && projectEditVM.project.ProjectId > 0)
+                {
+                    project = db.Projects.First(p => p.ProjectId == projectEditVM.project.ProjectId);
+                }
+                else
+                {
+                    db.Projects.Add(project);
+                }
+                project.Name = projectEditVM.project.Name;
+                project.AppUserId = (int)getCurrentUserId();
 
-            projectEditVM = load(projectEditVM.project.ProjectId);
+                db.SaveChanges();
+                projectEditVM = load(project.ProjectId);
+                projectEditVM.project.ProjectId = project.ProjectId;
+
+            }
+            else
+            {
+
+                projectEditVM = load(projectEditVM.project.ProjectId);
+            }
 
             return View("Index", projectEditVM);            
         
@@ -174,6 +190,16 @@ namespace CJCProjectEstimatorMVC.Controllers
 
             if (project != null && project.AppUserId.Equals(getCurrentUserId()))
             {
+                foreach (ProjectMaterial pm in db.ProjectMaterials.Where(p => p.ProjectId == ProjectId)) 
+                {
+                    db.ProjectMaterials.Remove(pm);
+                }
+
+                foreach (ProjectLaborItem pl in db.ProjectLaborItems.Where(p => p.ProjectId == ProjectId)) 
+                {
+                    db.ProjectLaborItems.Remove(pl);
+                }
+                db.SaveChanges();
                 db.Projects.Remove(project);
                 db.SaveChanges();
 
