@@ -10,7 +10,7 @@
     @using (Html.BeginForm("Index", "Login"))
     {
 
-    <div>@Html.ValidationSummary(true, "The following errors occured while logging in:")</div>
+    <div>@Html.ValidationSummary(true, "The following errors occurred while logging in:")</div>
     <div>@Html.ValidationMessageFor(model => model.AppUserVM.UserName)</div>
     <div>@Html.ValidationMessageFor(model => model.AppUserVM.Password)</div>
 

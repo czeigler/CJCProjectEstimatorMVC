@@ -17,6 +17,8 @@ namespace CJCProjectEstimatorMVC.Models
         public List<ProjectLaborItem> projectLaborItems { get; set; }
         public List<ProjectMaterial> projectMaterials { get; set; }
 
+        public ProjectReportLineViewModel ProjectCosts { get; set; }
+
         static ProjectEditViewModel() {
             Materials = new Dictionary<int, string>();
 

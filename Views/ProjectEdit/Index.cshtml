@@ -8,10 +8,15 @@
 
 <h4>Estimate Management Dashboard</h4>
 
+    @if (Model.project != null && Model.project.ProjectId > 0 )
+    {
+        <text>(change project name by updating and saving)</text>
+    }
 
 @using (Html.BeginForm("Index", "ProjectEdit"))
 {
-    <div>@Html.ValidationSummary(true, "The following errors occured while creating a project:")</div>
+    <div>@Html.ValidationSummary(true, "The following errors occurred while creating a project:")</div>
+    <div>@Html.ValidationMessageFor(model => model.project.Name)</div>
     <div>@Html.ValidationMessageFor(model => model.projectLaborItem.Description)</div>
     <div>@Html.ValidationMessageFor(model => model.projectLaborItem.Hours)</div>
     <div>@Html.ValidationMessageFor(model => model.projectLaborItem.CostPerHour)</div>
@@ -25,6 +30,7 @@
     @Html.LabelFor(model => model.project.Name, "Project Name:")<span class='required'>*</span>
     @Html.TextBoxFor(model => model.project.Name, new { maxlength = 40 })
     @Html.HiddenFor(model => model.project.ProjectId)
+
     <input type="submit" value="Save" />
 }
     
@@ -44,6 +50,7 @@
     @Html.HiddenFor(model => model.projectLaborItem.ProjectLaborItemId)
 
     <input type="submit" class="input addButton" value="Add Labor"/>
+    
 
 }
 <p />
@@ -133,8 +140,21 @@
 
 </tbody>
 </table></div>
- 
-</div><div class="contentClear"><p>Return to the @Html.ActionLink("Projects Page", "Index", "ProjectHome")</p></div>
+</div> 
+<div class="dashboardCosts">
+<div class="legend">Project Totals</div>
+
+<div class="dashboardTable"><table class="projectItems">
+<tr><td>Total Labor:</td><td class='numberColumn'> @String.Format("{0:c}", Model.ProjectCosts.TotalLaborCost)</td></tr>
+<tr><td>Total Materials:</td><td class='numberColumn'> @String.Format("{0:c}", Model.ProjectCosts.TotalMaterialCost)</td></tr>
+<tr><td>Grand Total:</td><td class='numberColumn'> @String.Format("{0:c}", Model.ProjectCosts.TotalCost)</td></tr>
+
+</table>
+</div></div>
+
+
+
+<div class="contentClear"><p>Return to the @Html.ActionLink("Projects Page", "Index", "ProjectHome")</p></div>
 </div>
 </div>
 

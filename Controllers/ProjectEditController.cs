@@ -14,7 +14,7 @@ namespace CJCProjectEstimatorMVC.Controllers
         private ProjectEditViewModel load(Int32? ProjectId)
         {
             ProjectEditViewModel projectEditVM = new ProjectEditViewModel();
-
+            ProjectReportLineViewModel ProjectReportLineItem = new ProjectReportLineViewModel();
             DBContext db = new DBContext();
             Project project = new Project();
             ProjectLaborItem projectLaborItem = new ProjectLaborItem();
@@ -34,6 +34,7 @@ namespace CJCProjectEstimatorMVC.Controllers
                 {
                     Material pmLookup = db.Materials.Where(m => m.MaterialId == pm.MaterialId).First();
                     ProjectMaterialViewModel projectMaterialViewModel = new ProjectMaterialViewModel();
+                    projectMaterialViewModel.ProjectMaterialId = pm.ProjectMaterialId;
                     projectMaterialViewModel.Cost = pm.Cost;
                     projectMaterialViewModel.Number = pm.Number;
                     projectMaterialViewModel.Name = pmLookup.Name;
@@ -41,9 +42,36 @@ namespace CJCProjectEstimatorMVC.Controllers
 
                 }
 
+                    
+                var projectCosts = from p in db.Projects
+                               join pl in db.ProjectLaborItems on p.ProjectId equals pl.ProjectId into plg
+                               join pm in db.ProjectMaterials on p.ProjectId equals pm.ProjectId into pmg
+                               where p.ProjectId == (int)ProjectId
+                               select new
+                               {
+                                   Name = p.Name,
+                                   CountLabor = plg.Select(a => a.ProjectId).Count(),
+                                   CountMaterial = pmg.Select(a => a.ProjectId).Count(),
+                                   CostMaterial = pmg.Select(a => (Double?)(a.Cost == null ? 0 : a.Cost) * (a.Number == null ? 0 : a.Number)).Sum(),
+                                   CostLabor = plg.Select(a => (Double?)(a.CostPerHour == null ? 0 : a.CostPerHour) * (a.Hours == null ? 0 : a.Hours)).Sum()
+                               };
+
+                foreach (var projectCost in projectCosts)
+                {
+
+                    ProjectReportLineItem = new ProjectReportLineViewModel();
+                    ProjectReportLineItem.Name = project.Name;
+                    ProjectReportLineItem.QuantityOfMaterials = projectCost.CountMaterial;
+                    ProjectReportLineItem.QuantityOfTasks = projectCost.CountLabor;
+                    ProjectReportLineItem.TotalLaborCost = projectCost.CostLabor == null ? 0D : (Double)projectCost.CostLabor;
+                    ProjectReportLineItem.TotalMaterialCost = projectCost.CostMaterial == null ? 0D : (Double)projectCost.CostMaterial;
+                    ProjectReportLineItem.TotalCost = ProjectReportLineItem.TotalLaborCost + ProjectReportLineItem.TotalMaterialCost;
+                    
+                }
             }
 
             projectEditVM.project = project;
+            projectEditVM.ProjectCosts = ProjectReportLineItem;
             projectEditVM.projectLaborItem = projectLaborItem;
             projectEditVM.projectMaterial = projectMaterial;
             projectEditVM.projectLaborItems = projectLaborItems;
@@ -73,14 +101,14 @@ namespace CJCProjectEstimatorMVC.Controllers
              
             if (db.Projects.Where(p => p.Name == projectEditVM.project.Name).Where(p => p.ProjectId != projectEditVM.project.ProjectId).FirstOrDefault() != null)
             {
-                ModelState.AddModelError("project.Name", "Project Name \"" + projectEditVM.project.Name + "\" is already being used");
+                ModelState.AddModelError("ProjectEditViewModel.project.Name", "Project Name \"" + projectEditVM.project.Name + "\" is already being used");
             }
 
             Project project;
             if (ModelState.IsValid)
             {
                 project = new Project();
-                if (projectEditVM.project.ProjectId != null && projectEditVM.project.ProjectId > 0)
+                if (projectEditVM.project.ProjectId > 0)
                 {
                     project = db.Projects.First(p => p.ProjectId == projectEditVM.project.ProjectId);
                 }
